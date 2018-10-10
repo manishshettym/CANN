@@ -2,7 +2,7 @@
 
 
 //uniform random (0-1)
-#define c_random()	( ((double)rand()) / RAND_MAX )
+#define cann_random()	( ((double)rand()) / RAND_MAX )
 
 /*Structure defining the whole neural network
  INFO:
@@ -30,4 +30,10 @@ typdef struct cann {
 
 
 
-}
+}cann;
+
+/* Creates and returns a new ann. */
+cann * cann_init(int inputs, int hidden_layers, int hidden, int outputs);
+
+/* Creates ANN from file saved with genann_write. */
+cann * cann_read(FILE *in);
