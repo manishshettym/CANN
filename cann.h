@@ -1,4 +1,5 @@
 #include<stdio.h>
+#define FREQ 2.60e9
 
 
 //uniform random (0-1)
@@ -57,8 +58,9 @@ typedef struct cann
 cann * cann_init(int inputs, int hidden_layers, int hidden, int outputs);
 
 /* Creates ANN from file saved with genann_write. */
-cann * cann_read(FILE *in);
-void cann_write(cann const *ann, FILE *out);
+cann * cann_read(FILE *in_struct , FILE *in_weight);
+void cann_write(cann const *ann, FILE *out_struct, FILE *out_weight);
+
 void cann_free(cann *ann);
 
 double const *cann_run(cann const *ann, double const *inputs);
@@ -69,3 +71,11 @@ void cann_randomize(cann *ann);
 double cann_act_threshold(const cann *ann, double a);
 double cann_act_linear(const cann *ann, double a);
 double cann_act_sigmoid(const cann *ann, double a);
+
+
+
+float loss(double predicted[] ,double expected[] , int n);
+float test_rmse(double predicted[] ,double expected[] , int n);
+
+
+unsigned long long rdtsc();

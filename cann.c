@@ -12,8 +12,50 @@
 #define cann_act_output cann_act_output_indirect
 #endif
 
+unsigned long long rdtsc()
+{
+  unsigned long long int x;
+  unsigned a, d;
+
+  __asm__ volatile("rdtsc" : "=a" (a), "=d" (d));
+
+  return ((unsigned long long)a) | (((unsigned long long)d) << 32);
+}
 
 
+/*SUMMARY STATISTICS*/
+float loss(double predicted[] ,double expected[] , int n)
+{
+	//using MSSE => mean(Sum(squared(errors)))
+
+    double sum_squared_errors=0;
+    for (int i = 0; i < n; ++i)
+    {
+        sum_squared_errors+= pow(expected[i] - predicted[i],2);
+
+    }
+
+    return ((sum_squared_errors/n));
+}
+
+float test_rmse(double predicted[] ,double expected[] , int n)
+{
+	//using RMSE => rrot(mean(squared(errors)))
+	double sum_squared_errors=0;
+    for (int i = 0; i < n; ++i)
+    {
+        sum_squared_errors+= pow(expected[i] - predicted[i],2);
+
+    }
+
+    return (sqrt(sum_squared_errors/n));
+  
+}
+
+
+
+
+/*IMPLEMENTATION*/
 double cann_act_hidden_indirect(const struct cann *ann, double a) 
 {
     return ann->activation_hidden(ann, a);
@@ -54,45 +96,6 @@ void cann_randomize(cann *ann)
 	}
 }
 
-cann *cann_read(FILE *in)
-{
-
-	int inputs,hidden_layers,hidden, outputs;
-	
-	int err_check;
-
-	errno = 0;
-	err_check = fscanf(in,"%d %d %d %d",
-	 			&inputs,&hidden_layers,&hidden,&outputs);
-
-	if(err_check<4 || errno !=0)
-	{
-		perror("init issue");
-		return NULL;
-	}
-
-
-	cann * ann = cann_init(inputs,hidden_layers,hidden, outputs);
-	//setup an ann with totalweights = total records
-
-	for (int i = 0; i < ann->total_weights; ++i)
-	{
-		errno=0;
-		err_check = fscanf(in," %le", ann->weight + i);
-
-		if(err_check<1 || errno!=0)
-		{
-			perror("weight issue");
-			//free the ann
-			return NULL;
-		}
-
-	}
-
-
-	return ann;
-}
-
 
 cann *cann_init(int inputs, int hidden_layers, int hidden, int outputs) 
 {
@@ -131,7 +134,7 @@ cann *cann_init(int inputs, int hidden_layers, int hidden, int outputs)
     cann_randomize(ret);
 
     ret->activation_hidden = cann_act_sigmoid;
-    ret->activation_output = cann_act_sigmoid;
+    ret->activation_output = cann_act_linear;
 
     return ret;
 }
@@ -150,12 +153,14 @@ double const *cann_run(cann const *ann, double const *inputs)
 
     if (!ann->hidden_layers) 
     {
+        //printf("Entered 1\n");
         double *ret = o;
         for (j = 0; j < ann->outputs; ++j) 
         {
             double sum = *w++ * -1.0;
             for (k = 0; k < ann->inputs; ++k) 
             {
+                //printf("%f ",*w);
                 sum += *w++ * i[k];
             }
             *o++ = cann_act_output(ann, sum);
@@ -236,11 +241,12 @@ void cann_train(cann const *ann , double const *inputs ,
 
 		if(cann_act_output == cann_act_linear || ann->activation_output == cann_act_linear)
 		{
+            //printf("Entered\n\n");
 			for(j= 0; j< ann->outputs ; j++)
 			{
 				//set del
 				*del= (*t - *op);
-
+                //printf("t:%f - op:%f = del:%f\n",*t,*op,*del);
 				//move pointers
 				del++;
 				op++; 
@@ -251,6 +257,7 @@ void cann_train(cann const *ann , double const *inputs ,
 		//what if not linear activation
 		else
 		{
+            
 			for(j= 0; j< ann->outputs ; j++)
 			{
 				//set del
@@ -369,15 +376,54 @@ void cann_free(cann *ann)
     free(ann);
 }
 
-/* UNDER CONSTRUCTION ..
-void cann_write(cann const *ann, FILE *out) 
+
+cann *cann_read(FILE *in_struct,FILE *in_weight)
 {
-    fprintf(out, "%d %d %d %d", ann->inputs, ann->hidden_layers, ann->hidden, ann->outputs);
+
+	int inputs,hidden_layers,hidden, outputs;
+	
+	int err_check;
+
+	errno = 0;
+	err_check = fscanf(in_struct,"%d %d %d %d",
+	 			&inputs,&hidden_layers,&hidden,&outputs);
+
+	if(err_check<4 || errno !=0)
+	{
+		perror("init issue");
+		return NULL;
+	}
+
+
+	cann * ann = cann_init(inputs,hidden_layers,hidden, outputs);
+	//setup an ann with totalweights = total records
+
+	for (int i = 0; i < ann->total_weights; ++i)
+	{
+		errno=0;
+		err_check = fscanf(in_weight," %le", ann->weight + i);
+
+		if(err_check<1 || errno!=0)
+		{
+			perror("weight issue");
+			//free the ann
+			return NULL;
+		}
+
+	}
+
+
+	return ann;
+}
+
+void cann_write(cann const *ann, FILE *out_struct, FILE *out_weight) 
+{
+    fprintf(out_struct, "%d %d %d %d", ann->inputs, ann->hidden_layers, ann->hidden, ann->outputs);
 
     int i;
     for (i = 0; i < ann->total_weights; ++i) 
     {
-        fprintf(out, " %.20e", ann->weight[i]);
+        fprintf(out_weight, " %.20e", ann->weight[i]);
     }
 }
-*/
+
