@@ -11,15 +11,10 @@ gcc -w cann.c <test_main_file.c> -lm
 
 ## Comparison with python modules
 
-1.Gate functionalities : Creating ANN for gates like XOR,AND,OR etc in a low level language like C is much faster and hiighly compatible too.
+### 1.Gate functionalities : Creating ANN for gates like XOR,AND,OR etc in a low level language like C is much faster and hiighly compatible too.
 
-2.Regression : The Auto-Mpg dataset was used to solve a MULTIPLE LINEAR REGRESSION problem using the ANN.
-
-### Dataset
-  | cylinders |	displacement |	horsepower |	weight |	acceleration |	mpg 
-  
-  Here the first 5 paramters were used to predict a cars MPG(milleage).
-### Results
+### 2.Regression : The Auto-Mpg dataset was used to solve a MULTIPLE LINEAR REGRESSION problem using the ANN.
+Results: 
   
   CANN 
   Iterations:1000 
@@ -31,9 +26,8 @@ gcc -w cann.c <test_main_file.c> -lm
   RMSE:5.516 
   Time(sec):13.9793 
   
-3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
-
-### Results
+### 3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
+Results: 
 
   CANN 
   Iterations:1000 
