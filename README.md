@@ -20,9 +20,12 @@ gcc -w cann.c <test_main_file.c> -lm
   
   Here the first 5 paramters were used to predict a cars MPG(milleage).
 ### Results
-  ANN:              CANN          KERAS
+  ANN:              CANN          KERAS  
+  
   Iterations        1000          1000  
-  RMSE              9.586         5.516
+  
+  RMSE              9.586         5.516  
+  
   Time(sec)         0.06558       13.9793
  
 3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
