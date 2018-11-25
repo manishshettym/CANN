@@ -46,7 +46,8 @@ typedef struct cann
 	//output array
 	double *output;
 
-	//error delta for hidden and output neuron(total - inputs)
+	//error delta for hidden and output neuron
+	//(total - inputs)
 	double *delta;
 
 

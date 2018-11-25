@@ -134,7 +134,7 @@ cann *cann_init(int inputs, int hidden_layers, int hidden, int outputs)
     cann_randomize(ret);
 
     ret->activation_hidden = cann_act_sigmoid;
-    ret->activation_output = cann_act_linear;
+    ret->activation_output = cann_act_sigmoid;
 
     return ret;
 }
