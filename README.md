@@ -6,6 +6,20 @@ This a simple library which integrates a lot of functionalities for basic ANN op
 ## Compile
 gcc -w cann.c <test_main_file.c> -lm
 
+<test_main_file.c> can be : 
+
+1. test_xor.c 
+2. test_iris.c 
+3. test_mpg.c 
+
+Corresponding python implementations are: 
+
+1. iris_test.py 
+2. mpg_test.py 
+
+
+
+
 ## Execute
 ./a.out
 
