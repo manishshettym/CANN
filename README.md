@@ -25,11 +25,10 @@ Corresponding python implementations are:
 
 ## Comparison with python modules
 
-### 1.Gate functionalities : Creating ANN for gates like XOR,AND,OR etc in a low level language like C is much faster and hiighly compatible too.
+#### 1. Gate functionalities : Creating ANN for gates like XOR,AND,OR etc in a low level language like C is much faster and hiighly compatible too.
+#### 2. Regression : The Auto-Mpg dataset was used to solve a MULTIPLE LINEAR REGRESSION problem using the ANN.
 
-### 2.Regression : The Auto-Mpg dataset was used to solve a MULTIPLE LINEAR REGRESSION problem using the ANN.
-
-#### Execution Time
+##### Execution Time
 |ANN library	|Iterations	|RMSE	|Time(sec)	| 
 |:---:|:---:|:---:|:---:|  
 |CANN	|10<sup>3</sup>	|9.586	|0.06558	| 
@@ -38,7 +37,7 @@ Corresponding python implementations are:
   
 ### 3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
 
-#### Execution Time
+##### Execution Time
 |ANN library	|Iterations	|Accuracy	|Time(sec)	| 
 |:---:|:---:|:---:|:---:| 
 |CANN	|10<sup>3</sup>	|96.7%	|0.1834	| 
