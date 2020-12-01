@@ -35,7 +35,7 @@ Corresponding python implementations are:
 |Keras	|10<sup>3</sup>	|5.516	|13.9793	| 
 
   
-### 3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
+#### 3.Classification : The IRIS dataset was used to solve a 3 class problem using the ANN.
 
 ##### Execution Time
 |ANN library	|Iterations	|Accuracy	|Time(sec)	| 
