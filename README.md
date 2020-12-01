@@ -3,26 +3,6 @@
 This a simple library which integrates a lot of functionalities for basic ANN operations.
 For more details on the library, read the short paper summary - [Paper](https://github.com/ManishShettyM/CANN/blob/master/Analysis/CANN.pdf)
 
-## Compile
-gcc -w cann.c <test_main_file.c> -lm
-
-<test_main_file.c> can be : 
-
-1. test_xor.c 
-2. test_iris.c 
-3. test_mpg.c 
-
-Corresponding python implementations are: 
-
-1. iris_test.py 
-2. mpg_test.py 
-
-
-
-
-## Execute
-./a.out
-
 ## Comparison with python modules
 
 #### 1. Gate functionalities : Creating ANN for gates like XOR,AND,OR etc in a low level language like C is much faster and hiighly compatible too.
@@ -44,7 +24,18 @@ Corresponding python implementations are:
 |Keras	|10<sup>3</sup>	|96.6%	|33.72608	| 
 
 
+## Steps to compile and Execute
+##### Compile
+```gcc -w cann.c <test_main_file.c> -lm```
 
- 
-  
+<test_main_file.c> can be : 
+1. test_xor.c 
+2. test_iris.c 
+3. test_mpg.c 
 
+Corresponding python implementations are: 
+1. iris_test.py 
+2. mpg_test.py 
+
+##### Execute
+> ./a.out
