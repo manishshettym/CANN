@@ -2,6 +2,7 @@
 C based Artificial Neural Network
 
 This a simple library which integrates a lot of functionalities for basic ANN operations.
+For more details on the library, read the short paper summary - [Paper](https://github.com/ManishShettyM/CANN/blob/master/Analysis/CANN.pdf)
 
 ## Compile
 gcc -w cann.c <test_main_file.c> -lm
